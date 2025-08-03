@@ -1,0 +1,103 @@
+import re
+import random
+
+
+pattern_responses = {
+    r"\b(hello|hi|hey)\b": [
+        "Hello! How can I assist you today?",
+        "Hi there! What can I do for you?"
+    ],
+    r"how are you": [
+        "I am just a bot, but I am functioning great! How about you?",
+        "Doing well, thanks for asking!"
+        "All systems go—how about you?",
+        "Doing well, thanks for asking!"
+    ],
+    r"what (?:is )?your name": [
+        "I am a rule-based chatbot created in Python.",
+        "You can call me ChatBot!"
+        "ChatBot at your service."
+    ],
+    r"tell me a joke": [
+        "Why don’t scientists trust atoms? Because they make up everything!",
+        "I would tell you a construction joke… but I'm still working on it."
+    ],
+    r"\b(help|assist)\b": [
+        "I can greet, tell jokes, answer simple questions, and say goodbye.",
+        "Sure! Ask me things like 'tell me a joke' or 'what's your name'."
+    ],
+    r"what languages can you speak": [
+        "I’m fluent in English.",
+        "I speak chatbot—mainly English for now."
+    ],
+    r"what('?s| is) up": [
+        "Not much—just here to chat! How can I help?",
+        "Just hanging out—what about you?"
+    ],
+    r"That's good": [
+        "Thankyou boss",
+     ],
+    r"are you a robot|are you human": [
+        "I’m a chatbot—but I’m on your team!",
+        "Definitely a bot, but a friendly one."
+    ],
+    r"do you love me": [
+        "I’m flattered! But I’m not programmed for romance ",
+        "My heart’s just data in a cloud!"
+    ],
+    r"my name is (.*)": [
+        "Hello mohan, nice to meet you!",
+        "Hi mohan! Great name."
+    ],
+    r"tell me something": [
+        "Did you know octopuses have three hearts?",
+        "A group of flamingos is called a flamboyance!"
+    ],
+    r"how is the weather like": [
+        "I don’t have real-time weather data, but I hope it’s sunny where you are!",
+        "Sorry, I can’t check the weather right now—how’s it looking outside?"
+    ],
+    r"what(?:'s| is) your age": [
+        "I’m timeless—I exist whenever you need me!",
+        "Age is just a number… but I don’t have one!"
+    ],
+    r"does santa claus exist": [
+        "In this digital world? He exists in spirit!",
+        "Yes—especially if you believe!"
+    ],
+    r"thank you|thanks": [
+        "You’re welcome!",
+        "Glad I could help!"
+        "Anytime!"
+    ],
+    r"bye|goodbye|exit|quit": [
+        "Goodbye! Have a great day!",
+        "See you later!"
+        "Talk to you soon!"
+    ]
+    
+    
+}
+default_responses = [
+    "I’m sorry, I don’t understand that. Could you rephrase?",
+    "Hmm, I’m not sure how to respond to that."
+]
+
+def get_response(user_input):
+    for pattern, responses in pattern_responses.items():
+        if re.search(pattern, user_input, re.IGNORECASE):
+            return random.choice(responses)
+    return random.choice(default_responses)
+
+def chatbot():
+    print("Chatbot: Hi! I am your chatbot. Type 'bye' to exit.")
+    while True:
+        user = input("You: ").strip()
+        if re.search(r"\b(bye|goodbye|exit|quit)\b", user, re.IGNORECASE):
+            print("Chatbot:", random.choice(pattern_responses[r"bye|goodbye|exit|quit"]))
+            break
+        response = get_response(user)
+        print("Chatbot:", response)
+
+if __name__ == "__main__":
+    chatbot()
